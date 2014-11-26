@@ -1,41 +1,23 @@
 package br.ufms.jasane.ia.caixeiro.oo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class JsonUtils {
 
-	public int[][] readRquestFile() {
-		int[][] prices;
-		File origin = new File("cities.json");
-		try {
-			FileReader reader = new FileReader(origin);
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
-			JSONArray pricesArray = (JSONArray) jsonObject.get("prices");
-
-//			prices new int[pricesArray.size()][]	;
-			
-			
-			System.out.println(Math.sqrt(pricesArray.size()));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public Double[][] readRquestFile(JSONObject obj) {
+		Double[][] prices;
+		JSONArray pricesArray = (JSONArray) obj.get("prices");
+		prices = new Double[pricesArray.size()][pricesArray.size()];
+		for (int i = 0; i < pricesArray.size(); i++) {
+			JSONObject tmp = (JSONObject) pricesArray.get(i);
+			for (int j = 0; j < tmp.size(); j++) {
+				JSONObject aux = (JSONObject) tmp.get("" + j + "");
+				String n = aux.get("price").toString();
+				prices[i][j] = Double.parseDouble(n);
+			}
 		}
-		return null;
+		return prices;
 	}
 
 	public int[][] sendResponseFile() {
