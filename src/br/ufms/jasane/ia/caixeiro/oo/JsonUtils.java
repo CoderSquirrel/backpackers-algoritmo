@@ -17,6 +17,13 @@ public class JsonUtils {
 				prices[i][j] = Double.parseDouble(n);
 			}
 		}
+		for (int i = 0; i < prices.length; i++) {
+			for (int j = 0; j < prices.length; j++) {
+				System.out.print(prices[i][j] + " | ");
+			}
+			System.out.println("");
+		}
+
 		return prices;
 	}
 
