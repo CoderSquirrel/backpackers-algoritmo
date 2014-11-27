@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Caixeiro {
 	static Random aleatorio = new Random();
-	static int SIZE = 5;
-	static int sort[] = { 0, 0, 0, 0, 0, 0 };
+	static int SIZE;
+	static int sort[];
 
 	/**
 	 * <b>nMut e nMut2</b> as poscições no vetor que serão trocadas para ocorrer
@@ -32,6 +32,12 @@ public class Caixeiro {
 		return tj;
 	}
 
+	public static void printVetor(int[] v) {
+		for (int i = 0; i < v.length; i++)
+			System.out.print(v[i] + " ");
+
+	}
+
 	/**
 	 * <b>nPop</b> nova população sendo crada. <br />
 	 * É gerado um numero aleatorio, esse numero nao pode ser 0 e nem já ter
@@ -39,20 +45,24 @@ public class Caixeiro {
 	 * Após todos os numeros serem sorteados e colocados em suas posições é
 	 * finalizado a criação do vetor.
 	 * 
-	 * @return um noto objeto Trajeto
+	 * @return um novo objeto Trajeto
 	 */
 	public static Trajeto criar() {
 		int[] nPop = new int[SIZE];
 		for (int i = 0; i < SIZE; i++) {
-			int num = aleatorio.nextInt(SIZE+1);
+			int num = aleatorio.nextInt(SIZE + 1);
 			do {
-				num = aleatorio.nextInt(SIZE+1);
+				num = aleatorio.nextInt(SIZE + 1);
 
 			} while (sort[num] == 1 || num == 0);
-
 			nPop[i] = num;
 			sort[num] = 1;
+
 		}
+		// printVetor(nPop);
+		// System.out.println("");
+		// printVetor(sort);
+		// System.out.println("");
 		Trajeto tj = new Trajeto(nPop);
 		Arrays.fill(sort, 0);
 		return tj;
@@ -64,7 +74,7 @@ public class Caixeiro {
 		ArrayList<Double> probSelecao = new ArrayList<Double>();
 		Collections.sort(t2);
 
-		int total = 0;
+		double total = 0;
 		for (Trajeto t : t2) {
 			total = total + t.getDistancia();
 		}
@@ -93,14 +103,14 @@ public class Caixeiro {
 	public static Trajeto selecaoRoleta(ArrayList<Trajeto> tjs) {
 		// float[] posicoes = new float[tjs.size()];
 		float roleta = aleatorio.nextFloat();
-		int amostra[] = new int[tjs.size()];
+		double amostra[] = new double[tjs.size()];
 		float[] probs = new float[tjs.size()];
 
 		ArrayList<Trajeto> t2 = tjs;
 		Collections.sort(t2);
 
-		int total = 0;
-		int ultimo = tjs.get(tjs.size() - 1).getDistancia();
+		double total = 0;
+		double ultimo = tjs.get(tjs.size() - 1).getDistancia();
 
 		// Espaco amostra imaginaria
 		for (int p = 0; p < tjs.size(); p++) {
@@ -110,7 +120,7 @@ public class Caixeiro {
 
 		// probabiliade
 		for (int p = 0; p < tjs.size(); p++) {
-			probs[p] = (float) amostra[p] / total;
+			probs[p] = (float) (amostra[p] / total);
 			// System.out.println(probs[p]);
 		}
 
@@ -121,15 +131,16 @@ public class Caixeiro {
 			int prox = p > 1 ? p - 1 : p;
 			if (roleta > somaFinal) {
 				if (roleta < (somaFinal + probs[prox])) {
-//					System.out.println("Escoliho " + tjs.get(p).getDistancia()
-//							+ " Porcentagem " + probs[p] + " Roleta " + roleta
-//							+ " Numero atual " + somaFinal + " Proximo "
-//							+ (somaFinal + probs[prox]));
+					// System.out.println("Escoliho " +
+					// tjs.get(p).getDistancia()
+					// + " Porcentagem " + probs[p] + " Roleta " + roleta
+					// + " Numero atual " + somaFinal + " Proximo "
+					// + (somaFinal + probs[prox]));
 					return tjs.get(p);
 				} else if (p == 0) {
-//					System.out.println("Escoliho" + tjs.get(p).getDistancia()
-//							+ " Porcentagem " + probs[p] + " Roleta " + roleta
-//							+ " Numero atual " + somaFinal);
+					// System.out.println("Escoliho" + tjs.get(p).getDistancia()
+					// + " Porcentagem " + probs[p] + " Roleta " + roleta
+					// + " Numero atual " + somaFinal);
 
 					return tjs.get(p);
 				}

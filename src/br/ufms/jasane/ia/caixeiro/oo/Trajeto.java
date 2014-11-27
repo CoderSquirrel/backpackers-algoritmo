@@ -3,7 +3,7 @@ package br.ufms.jasane.ia.caixeiro.oo;
 public class Trajeto implements Comparable {
 
 	private int vetor[];
-	private int distancia;
+	private double distancia;
 
 	public Trajeto(int[] vetor) {
 		this.vetor = vetor;
@@ -23,16 +23,35 @@ public class Trajeto implements Comparable {
 		calcularDistancia();
 	}
 
-	public int getDistancia() {
+	public double getDistancia() {
+		calcularDistancia();
 		return distancia;
 	}
 
-	private void calcularDistancia() {
+	public void calcularDistancia() {
+		// System.out.println("Calculo distancia de ");
+		// printVetor();
+		// System.out.println("");
 		distancia = Distancias.matriz[0][vetor[0]];
+		// System.out.println(distancia + " == " +
+		// Distancias.matriz[0][vetor[0]]);
 		for (int i = 1; i < vetor.length; i++) {
+			// System.out.print(distancia);
 			distancia = distancia + Distancias.matriz[vetor[i - 1]][vetor[i]];
+			// System.out.print(" =+ " + Distancias.matriz[vetor[i -
+			// 1]][vetor[i]]
+			// + " = " + distancia + "\n");
 		}
-		distancia = distancia + Distancias.matriz[0][vetor[vetor.length - 1]];
+		// System.out.println(distancia + "+= "
+		// + Distancias.matriz[vetor[vetor.length - 1]][0]);
+		distancia = distancia + Distancias.matriz[vetor[vetor.length - 1]][0];
+		// System.out.println(distancia);
+	}
+
+	public void printVetor() {
+		for (int i = 0; i < vetor.length; i++)
+			System.out.print(vetor[i] + " ");
+
 	}
 
 	@Override
