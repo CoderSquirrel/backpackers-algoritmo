@@ -113,6 +113,7 @@ public class Main {
 		// writer.flush();
 		// writer.close();
 		JsonUtils.sendResponseFile(populacao.get(0));
+		// .toJSONString());
 		// } catch (IOException e) {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
