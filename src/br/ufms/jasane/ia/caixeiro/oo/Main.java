@@ -25,7 +25,7 @@ public class Main {
 	static int TAXA_MUTACAO = 6;
 	static int TAXA_CRUZAMENTO = 3;
 	static int TAXA_SELECAO = 5;
-	static int MINIMO = 5;
+	static int MINIMO = 50;
 	static int POPULACAO_INICIAL = 20;
 
 	@SuppressWarnings("unchecked")
@@ -33,8 +33,8 @@ public class Main {
 
 		ArrayList<Trajeto> populacao = new ArrayList<Trajeto>();
 		Random aleatorio = new Random();
-		// File origin = new File("cities.json");
-		File origin = new File(args[0]);
+		 File origin = new File("cities.json");
+//		File origin = new File(args[0]);
 		// File output = new File("result.json");
 		FileReader reader;
 		FileWriter writer;
@@ -59,6 +59,7 @@ public class Main {
 		for (int i = 0; i < POPULACAO_INICIAL; i++) {
 			populacao.add(Caixeiro.criar());
 		}
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		Collections.sort(populacao);
 
 		Trajeto menor = populacao.get(0);
@@ -88,6 +89,8 @@ public class Main {
 			}
 			if (popAux.size() != 0) {
 				populacao = popAux;
+				System.setProperty("java.util.Arrays.useLegacyMergeSort",
+						"true");
 				Collections.sort(populacao);
 				Trajeto menorGeracao = populacao.get(0);
 				menorAtual = menorGeracao.getDistancia();
@@ -104,6 +107,7 @@ public class Main {
 			}
 			geracao++;
 		}
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		Collections.sort(populacao);
 
 		// try {

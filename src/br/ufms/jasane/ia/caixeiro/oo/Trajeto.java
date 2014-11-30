@@ -63,6 +63,9 @@ public class Trajeto implements Comparable {
 		if (this.distancia > o.getDistancia()) {
 			return 1;
 		}
+		if(this.distancia == o.getDistancia()){
+			return 0;
+		} 
 		return 0;
 	}
 }

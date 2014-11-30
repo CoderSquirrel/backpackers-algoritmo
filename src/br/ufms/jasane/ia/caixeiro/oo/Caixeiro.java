@@ -72,6 +72,7 @@ public class Caixeiro {
 		double roleta = aleatorio.nextDouble();
 		ArrayList<Trajeto> t2 = tjs;
 		ArrayList<Double> probSelecao = new ArrayList<Double>();
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		Collections.sort(t2);
 
 		double total = 0;
@@ -107,6 +108,7 @@ public class Caixeiro {
 		float[] probs = new float[tjs.size()];
 
 		ArrayList<Trajeto> t2 = tjs;
+		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		Collections.sort(t2);
 
 		double total = 0;

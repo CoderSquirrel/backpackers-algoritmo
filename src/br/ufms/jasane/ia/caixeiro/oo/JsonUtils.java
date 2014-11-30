@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 
 public class JsonUtils {
 
+	/*
 	public static Double[][] readRquestFile(JSONObject obj) {
 		Double[][] prices;
 		JSONArray pricesArray = (JSONArray) obj.get("prices");
@@ -26,7 +27,22 @@ public class JsonUtils {
 
 		return prices;
 	}
-
+*/
+	public static Double[][] readRquestFile(JSONObject obj) {
+		Double[][] prices;
+		JSONArray pricesArray = (JSONArray) obj.get("prices");
+		 prices = new Double[pricesArray.size()][pricesArray.size()];
+		for (int i = 0; i < pricesArray.size(); i++) {
+			JSONArray tmp = (JSONArray) pricesArray.get(i);
+			for (int j = 0; j < tmp.size(); j++) {
+				String aux = "" + tmp.get(j);
+				Double n = Double.parseDouble(aux);
+				prices[i][j] = n;
+			}
+		}
+		return prices;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static JSONObject sendResponseFile(Trajeto t) {
 		JSONArray rout = new JSONArray();
